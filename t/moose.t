@@ -8,14 +8,14 @@ use Module::Runtime ();
 sub uses_moose_ok {
     my ($mod) = @_;
 SKIP: {
-        my $meta = $mod->can('meta') && $mod->meta;
-        my $metaclass = $meta && ref $meta;
+        my $meta      = $mod->can('meta') && $mod->meta;
+        my $metaclass = $meta             && ref $meta;
 
-        if ($metaclass && $metaclass->can('is_immutable')) {
+        if ( $metaclass && $metaclass->can('is_immutable') ) {
             ::ok( $meta->is_immutable, "$mod is immutable" );
         }
-        elsif ($metaclass && $metaclass->isa('Moose::Meta::Role')) {
-            ::pass( "$mod is a role" );
+        elsif ( $metaclass && $metaclass->isa('Moose::Meta::Role') ) {
+            ::pass("$mod is a role");
         }
         else {
             ::skip( "$mod is not a Moose class or role", 1 );
