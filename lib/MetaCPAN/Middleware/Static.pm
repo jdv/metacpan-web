@@ -29,6 +29,7 @@ sub wrap {
             mousetrap.min
             shCore
             shBrushPerl
+            shBrushPerl6
             shBrushPlain
             shBrushYaml
             shBrushJScript
