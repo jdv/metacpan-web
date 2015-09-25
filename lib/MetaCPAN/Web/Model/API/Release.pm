@@ -330,6 +330,7 @@ sub interesting_files {
                                                         MANIFEST
                                                         META.json
                                                         META.yml
+                                                        META6.json
                                                         Makefile.PL
                                                         NEWS
                                                         README
