@@ -91,8 +91,15 @@ sub content : Private {
 sub detect_filetype {
     my ( $self, $file ) = @_;
 
+    if ( defined( $file->{content} ) ) {
+        return 'perl6' if $file->{content} =~ /^\s*use\s+v6/m;
+        return 'perl6' if $file->{content} =~ /\s+vim?:\s*ft=perl6/m;
+    }
+
     if ( defined( $file->{path} ) ) {
         local $_ = $file->{path};
+
+        return 'perl6' if /\.[^.]6$/;
 
         # No separate pod brush as of 2011-08-04.
         return 'perl' if /\. ( p[ml] | psgi | pod ) $/ix;
