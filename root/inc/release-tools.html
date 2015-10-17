@@ -1,5 +1,4 @@
 <li class="nav-header">Tools</li>
-<% INCLUDE inc/perlybook.html %>
 <li>
     <a <% IF schema_org %>itemprop="downloadUrl"<% END %> href="<% release.download_url.replace('cpan\.cpantesters\.org', 'cpan.metacpan.org').replace('^http://', 'https://') %>">
     <i class="fa fa-download fa-fw black"></i>Download (<span <% IF schema_org %>itemprop="fileSize"<% END %> ><% release.stat.size | format_bytes %>b</span>)</a>
@@ -10,25 +9,17 @@
     <% END %>
 </li>
 <li>
-    <a href="https://explorer.metacpan.org/?url=<% ("/" _ ( module ? ['module', module.author, module.release, module.path].join("/") : ['release', release.author, release.name].join("/") ) ) | uri %>">
-    <i class="fa fa-list-alt fa-fw black"></i>MetaCPAN Explorer
-    </a>
-</li>
-<li>
-    <a href="<% 'http://cpanratings.perl.org/rate/?distribution=' _ release.distribution | uri %>">
-    <i class="fa fa-star fa-fw black"></i>Rate this distribution
-    </a>
-</li>
-<li>
     <a href="/feed/distribution/<% release.distribution %>">
     <i class="fa fa-rss-square fa-fw black"></i>Subscribe to distribution
     </a>
 </li>
+<% UNLESS c.config.is_perl6 %>
 <li>
     <button class="btn btn-link" data-toggle="modal" data-target="#install-instructions-dialog">
       <i class="fa fa-terminal fa-fw black"></i>Install Instructions
     </button>
 </li>
+<% END %>
 <li>
     <form action="/search">
         <input type="hidden" name="q" value="dist:<% release.distribution %>">
@@ -59,18 +50,12 @@
 </ul>
 <%- END %>
 <li class="nav-header">Permalinks</li>
+<% UNLESS c.config.is_perl6 %>
 <li>
     <a href="/<% module ? "pod/release" : "release" %>/<% release.author %>/<% release.name %>/<% module.path %>">This version</a>
 </li>
 <%- IF canonical %>
 <li>
     <a <% IF schema_org %>itemprop="url"<% END %> href="<% canonical %>">Latest version</a>
-</li>
-<li class="nav-header">S.C.O</li>
-<li>
-    <a href="http://search.cpan.org/~<% release.author %>/<% release.name %>/<% module.path %>" rel="nofollow">This version</a>
-</li>
-<li>
-    <a href="http://search.cpan.org/<% module ? "perldoc?$module.documentation" : ["dist", release.metadata.name].join('/') %>" rel="nofollow">Latest version</a>
 </li>
 <%- END %>

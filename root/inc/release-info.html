@@ -18,25 +18,17 @@
     <% END %>
 </li>
 <% END %>
+<% UNLESS c.config.is_perl6 %>
 <li>
     <a data-keyboard-shortcut="g i" href="<% issues.url %>"><i class="fa fa-fw fa-info-circle black"></i>Issues</a>
     <% IF issues.defined("active") %>(<% issues.active %>)<% END %>
 </li>
+<% END %>
 <% IF rating.count > 0 %>
 <li>
     <% INCLUDE inc/rating.html prefix = '<i class="fa fa-fw fa-smile-o black"></i>', rating = rating, distribution = release.distribution %>
 </li>
 <% END %>
-<li>
-    <%
-    testers_version = release.name.remove('^' _ release.distribution.quotemeta _ '-?');
-    cpantesters_base = "http://www.cpantesters.org/distro/" _ release.distribution.chunk(1).0.uc _ "/" _ release.distribution _ ".html?oncpan=1&distmat=1&version=" _ (testers_version | uri) %>
-    <a href="http://matrix.cpantesters.org/?dist=<% release.distribution | uri %>+<% testers_version | uri %>" title="Matrix"><i class="fa fa-fw fa-check-circle black"></i>Testers</a>
-    <% IF release.tests.size %><span title="(pass / fail / na)">(<a href="<% cpantesters_base %>&amp;grade=2" style="color: #090"><% release.tests.pass %></a> / <a href="<% cpantesters_base %>&amp;grade=3" style="color: #900"><% release.tests.fail %></a> / <a href="<% cpantesters_base %>&amp;grade=4"><% release.tests.na %></a>)</span><% END %>
-</li>
-<li>
-    <a href="http://cpants.charsbar.org/dist/overview/<% release.distribution %>"><i class="fa fa-fw fa-line-chart black"></i>Kwalitee</a>
-</li>
 <% IF release.license %>
 <li><i class="fa fa-fw fa-gavel black"></i>License: <% release.license.join(', ') %></li>
 <% END %>

@@ -39,7 +39,8 @@ __PACKAGE__->config(
             },
             store => { class => 'Proxy', }
         },
-    }
+    },
+    is_perl6 => $ENV{METACPAN_IS_PERL6},
 );
 
 sub token {
