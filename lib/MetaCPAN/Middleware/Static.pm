@@ -100,6 +100,10 @@ sub wrap {
             $res;
         };
 
+        my $cpan_app = Plack::App::File->new(
+          root => '../CPAN/authors/' )->to_app;
+        mount '/authors' => sub { $cpan_app->(@_); };
+
         mount '/' => $app;
     };
 }
